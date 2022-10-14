@@ -1,4 +1,5 @@
 import React from 'react';
+import { GameContainer } from './GameContainer';
 import { StartContainer } from './StartContainer';
 
 type PageState = 'start' | 'game' | 'end';
@@ -13,5 +14,5 @@ export default function IndexContainer() {
     return <div>end</div>;
   }
 
-  return <div>game</div>;
+  return <GameContainer />;
 }
