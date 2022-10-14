@@ -1,4 +1,4 @@
-import { styled } from '../stitches.config';
+import { styled } from '../styles/styled';
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const ContainerRoot = styled('div', {
 });
 const ChildrenWrapper = styled('div', {
   width: '100%',
-  maxWidth: '640px',
+  maxWidth: 640,
   backgroundColor: 'white',
   margin: '0 auto',
 });
