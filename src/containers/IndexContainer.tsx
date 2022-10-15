@@ -14,5 +14,5 @@ export default function IndexContainer() {
     return <div>end</div>;
   }
 
-  return <GameContainer />;
+  return <GameContainer onEnd={() => setPageState('end')} />;
 }

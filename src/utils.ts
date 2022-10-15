@@ -1,4 +1,4 @@
-import { Card, CardNumber, CardType } from './types';
+import { BasicCard, CardNumber, CardType } from './types';
 
 export function range(start: number, end?: number, step = 1): number[] {
   const _start = end === undefined ? 0 : start;
@@ -32,9 +32,9 @@ export function shuffle<T>(array: T[]): T[] {
 }
 
 const types: CardType[] = ['heart', 'club', 'diamond', 'spade'];
-export function getCard(num: number): Card {
+export function getCard(num: number): BasicCard {
   const type = types[num % 4];
-  const number = Math.floor(num / 4) as CardNumber;
+  const number = (Math.floor(num / 4) + 1) as CardNumber;
 
   return {
     type,
@@ -55,6 +55,9 @@ export function getSymbol(type: CardType) {
   }
 }
 
-export function getCardText(card: Card) {
-  return `${card.number} ${getSymbol(card.type)}`;
+export function getOppositeTypes(type: CardType): CardType[] {
+  if (type === 'spade' || type === 'club') {
+    return ['heart', 'diamond'];
+  }
+  return ['spade', 'club'];
 }

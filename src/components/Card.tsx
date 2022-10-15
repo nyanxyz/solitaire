@@ -1,20 +1,31 @@
+import { useMemo } from 'react';
 import { styled } from '../styles/styled';
 import { alignment, flex } from '../styles/utils';
 import { CardNumber, CardType } from '../types';
 import { getSymbol } from '../utils';
 
 interface CardProps extends React.ComponentProps<typeof Root> {
-  children?: string;
+  children?: React.ReactNode;
   bgColor?: 'gray' | 'blue';
   number?: CardNumber;
   type?: CardType;
 }
 
 export function Card({ children, bgColor = 'gray', number, type, ...restProps }: CardProps) {
+  const cardText = useMemo(() => {
+    if (number === 1) return 'A';
+    if (number === 11) return 'J';
+    if (number === 12) return 'Q';
+    if (number === 13) return 'K';
+    return number;
+  }, [number]);
+
   return (
     <Root className={type} bgColor={bgColor} {...restProps}>
-      {type && <div>{getSymbol(type)}</div>}
-      {number && <div>{number}</div>}
+      <div>
+        {type && <span>{getSymbol(type)}</span>}
+        {cardText && <span>{cardText}</span>}
+      </div>
       {children}
     </Root>
   );
@@ -22,13 +33,15 @@ export function Card({ children, bgColor = 'gray', number, type, ...restProps }:
 
 const Root = styled('div', {
   ...flex.column,
-  ...alignment.center,
-  gap: '$1',
-  width: 50,
+  ...alignment.align,
+  justifyContent: 'flex-start',
+  width: '10vw',
+  maxWidth: 50,
   aspectRatio: 3 / 4,
   borderRadius: 4,
   userSelect: 'none',
   webKitUserSelect: 'none',
+  cursor: 'pointer',
   '&.heart, &.diamond': {
     color: 'red',
   },
